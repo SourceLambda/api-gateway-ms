@@ -10,7 +10,6 @@ export const billTypeDef = `
 
   type Bill {
     idCliente: Int!
-    idBill: Int!
     total: Float!
     date: String!
     user: String!

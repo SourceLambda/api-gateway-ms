@@ -9,7 +9,8 @@
 		"prepublish": "rollup -c",
 		"test": "run-s eslint",
 		"start": "run-s prepublish runServer",
-		"runServer": "node lib/index.js"
+		"runServer": "node lib/index.js",
+		"dev": "nodemon --exec npm run runServer"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [
@@ -42,6 +43,7 @@
 		"eslint-plugin-no-only-tests": "^2.0.0",
 		"husky": "^0.14.3",
 		"lint-staged": "^6.0.1",
+		"nodemon": "^2.0.22",
 		"npm-run-all": "^4.1.2",
 		"prettier": "1.9.2",
 		"rimraf": "^2.6.2",
