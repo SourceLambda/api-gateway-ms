@@ -10,19 +10,29 @@ import {
 	categoryTypeDef
 } from './swarch2023i/categories/typeDefs';
 
+import {
+	billMutations,
+	billQueries,
+	billTypeDef
+} from './placeOrder_ms/typeDefs';
+
 import categoryResolvers from './swarch2023i/categories/resolvers';
+import billResolvers from './placeOrder_ms/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		categoryTypeDef
+		categoryTypeDef,
+		billTypeDef
 	],
 	[
-		categoryQueries
+		categoryQueries,
+		billQueries
 	],
 	[
-		categoryMutations
+		categoryMutations,
+		billMutations
 	]
 );
 
@@ -31,6 +41,7 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		categoryResolvers
+		categoryResolvers,
+		billResolvers
 	)
 });
