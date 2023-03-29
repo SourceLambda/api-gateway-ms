@@ -10,19 +10,22 @@ import {
 	categoryTypeDef
 } from './swarch2023i/categories/typeDefs';
 
+import { profileQueries, profileMutations, profileTypeDef } from './profile/typeDefs';
+
 import categoryResolvers from './swarch2023i/categories/resolvers';
+import profileResolvers from './profile/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		categoryTypeDef
+		profileTypeDef
 	],
 	[
-		categoryQueries
+		profileQueries
 	],
 	[
-		categoryMutations
+		profileMutations
 	]
 );
 
@@ -31,6 +34,6 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		categoryResolvers
+		profileResolvers
 	)
 });
