@@ -5,9 +5,9 @@ import koaBody from 'koa-bodyparser';
 import koaCors from '@koa/cors';
 
 import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
-import graphQLSchema from './graphQLSchema';
+import graphQLSchema from './graphQLSchema.js';
 
-import { formatErr } from './utilities';
+import { formatErr } from './utilities.js';
 
 const app = new Koa();
 const router = new KoaRouter();

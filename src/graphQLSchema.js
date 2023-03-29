@@ -2,15 +2,15 @@ import merge from 'lodash.merge';
 import GraphQLJSON from 'graphql-type-json';
 import { makeExecutableSchema } from 'graphql-tools';
 
-import { mergeSchemas } from './utilities';
+import { mergeSchemas } from './utilities.js';
 
 import {
 	categoryMutations,
 	categoryQueries,
 	categoryTypeDef
-} from './swarch2023i/categories/typeDefs';
+} from './swarch2023i/categories/typeDefs.js';
 
-import categoryResolvers from './swarch2023i/categories/resolvers';
+import categoryResolvers from './swarch2023i/categories/resolvers.js';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(

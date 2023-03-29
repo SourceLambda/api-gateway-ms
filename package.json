@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/index.js",
+	"type": "module",
 	"scripts": {
 		"eslint": "eslint src",
 		"eslint-fix": "npm run eslint -- --fix",
@@ -26,7 +27,7 @@
 		"graphql": "^0.11.7",
 		"graphql-tools": "^2.18.0",
 		"graphql-type-json": "^0.1.4",
-		"koa": "^2.4.1",
+		"koa": "^2.14.1",
 		"koa-bodyparser": "^4.2.0",
 		"koa-logger": "^3.1.0",
 		"koa-router": "^7.3.0",
