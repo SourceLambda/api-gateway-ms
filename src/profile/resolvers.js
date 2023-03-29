@@ -11,7 +11,7 @@ const resolvers = {
 		cardsByProfileId: (_, { id_profile }) =>
 			generalRequest(`${URL}/profile/${id_profile}/cards`, 'GET'),
 
-		addressesByProfileId: (_, { id_profile }) =>
+		addressessByProfileId: (_, { id_profile }) =>
 			generalRequest(`${URL}/profile/${id_profile}/addresses`, 'GET'),
 	},
 	Mutation: {
