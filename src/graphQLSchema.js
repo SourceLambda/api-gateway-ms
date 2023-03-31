@@ -5,27 +5,40 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
-	categoryMutations,
-	categoryQueries,
-	categoryTypeDef
-} from './swarch2023i/categories/typeDefs';
+	typeDefsPostMS,
+	queriesPostMS,
+	mutationsPostMS
+} from './post_ms/typeDefs.js';
 
 import { profileQueries, profileMutations, profileTypeDef } from './profile/typeDefs';
 
-import categoryResolvers from './swarch2023i/categories/resolvers';
+import {
+	billMutations,
+	billQueries,
+	billTypeDef
+} from './placeOrder_ms/typeDefs';
+
 import profileResolvers from './profile/resolvers';
+import postResolvers from './post_ms/resolvers';
+import billResolvers from './placeOrder_ms/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		profileTypeDef
+		profileTypeDef,
+		typeDefsPostMS,
+		billTypeDef
 	],
 	[
-		profileQueries
+		profileQueries,
+		queriesPostMS,
+		billQueries
 	],
 	[
-		profileMutations
+		profileMutations,
+		mutationsPostMS,
+		billMutations
 	]
 );
 
@@ -34,6 +47,8 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		profileResolvers
+		profileResolvers,
+		postResolvers,
+		billResolvers
 	)
 });
