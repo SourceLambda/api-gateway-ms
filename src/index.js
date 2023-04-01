@@ -27,6 +27,7 @@ app.use(async (ctx, next) => {
 	await next();
 });
 
+
 // GraphQL
 const graphql = graphqlKoa((ctx) => ({
 	schema: graphQLSchema,
