@@ -9,6 +9,7 @@ export const billTypeDef = `
   }
 
   type Bill {
+    idBill: Int!
     idCliente: Int!
     total: Float!
     date: String!
@@ -24,9 +25,13 @@ export const billTypeDef = `
   `;
 
 export const billQueries = `
-  historyByClientId(idCliente: Int!): [Bill]
+  historyByClientId(idCliente: Int!): [Bill],
+  allBills: [Bill],
+  billById(idBill: Int!): Bill
   `;
 
 export const billMutations = `
   createBill(cliente: BillInput!): Bill!
+  updateStateBill(idBill: Int!, state: String!): Bill!,
+  deleteBill(idBill: Int!) : String
 `;
