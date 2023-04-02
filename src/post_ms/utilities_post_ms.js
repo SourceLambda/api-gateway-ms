@@ -29,7 +29,6 @@ async function generalRequest(url, method, body) {
 			// POST /post or PUT /post/{id}
 			
 			body.Description = JSON.stringify(body.Description)
-			body.Price = String(body.Price)
 			
 			const parameters = {
 				method,
@@ -53,7 +52,6 @@ async function generalRequest(url, method, body) {
 			// GET /post/{id}
 			
 			response.Description = JSON.parse(response.Description)
-			response.Price = Number(response.Price.split("$")[1].replaceAll(',', ''))
 			
 			return response
 		}
@@ -62,7 +60,6 @@ async function generalRequest(url, method, body) {
 			
 			response.forEach(postReturned => {
 				postReturned.Description = JSON.parse(postReturned.Description)
-				postReturned.Price = Number(postReturned.Price.split("$")[1].replaceAll(',', ''))
 			});
 			
 			return response
