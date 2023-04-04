@@ -15,15 +15,24 @@ const resolvers = {
 		allCategories: (_ ) => 
 			generalRequest(`${URL}/${categoriesEntryPoint}`, 'GET'),
 		// reviews query resolvers
-		allReviews: (_, { page }) => {
-			const params = page ? `?p=${page}` : '';
-			return generalRequest(`${URL}/${reviewsEntryPoint + params}`, 'GET')
+		allReviews: (_, { page, postID }) => {
+			let params;
+			if (page && !postID) {
+				params = `?page=${page}`
+			}
+			if (!page && postID) {
+				params = `?postID=${postID}`
+			}
+			if (!page && !postID) {
+				params = ""
+			}
+			return generalRequest(`${URL}/${reviewsEntryPoint}${params}`, 'GET')
 		},
 		reviewById: (_, { ID }) =>
 			generalRequest(`${URL}/${reviewsEntryPoint}/${ID}`, 'GET'),
 		// posts query resolvers
 		allPosts: (_, { page }) => {
-			const params = page ? `?p=${page}` : '';
+			const params = page ? `?page=${page}` : '';
 			return generalRequest(`${URL}/${postsEntryPoint + params}`, 'GET')
 		},
 		postById: (_, { ID }) =>

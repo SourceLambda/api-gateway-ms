@@ -83,17 +83,17 @@ const categoriesQueries = `
 `
 
 const reviewQueries = `
-	allReviews(page: Int!): [Review]!
+	allReviews(page: Int, postID: Int): [Review]!
 	reviewById(ID: Int!): Review!
 `;
 const reviewMutations = `
 	createReview(review: ReviewInput!): String!
 	updateReview(ID: Int!, review: UpdReviewBody!): String!
-	deleteReview(ID: Int!, body: DelReviewBody): String!
+	deleteReview(ID: Int!, body: DelReviewBody!): String!
 `;
 
 const postQueries = `
-	allPosts(page: Int!): [Post]!
+	allPosts(page: Int): [Post]!
 	postById(ID: Int!): Post!
 `;
 const postMutations = `
