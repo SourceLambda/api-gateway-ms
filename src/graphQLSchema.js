@@ -5,24 +5,29 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
-	categoryMutations,
-	categoryQueries,
-	categoryTypeDef
-} from './swarch2023i/categories/typeDefs';
+	messageTypeDef,
+	itemTypeDef,
+	cartTypeDef,
+	cartQueries,
+	cartMutations
+	
+} from './cart/typeDefs';
 
-import categoryResolvers from './swarch2023i/categories/resolvers';
+import cartResolvers from './cart/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		categoryTypeDef
+		messageTypeDef,
+		itemTypeDef,
+		cartTypeDef
 	],
 	[
-		categoryQueries
+		cartQueries
 	],
 	[
-		categoryMutations
+		cartMutations
 	]
 );
 
@@ -31,6 +36,6 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		categoryResolvers
+		cartResolvers
 	)
 });

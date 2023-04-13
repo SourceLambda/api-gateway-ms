@@ -23,7 +23,12 @@ export async function generalRequest(url, method, body, fullResponse) {
 	}
 
 	try {
-		return await request(parameters);
+		const res = await request(parameters);
+
+		// console.log(`The response is:\n ${JSON.stringify(res)}`);
+
+		return res;
+
 	} catch (err) {
 		return err;
 	}
