@@ -20,10 +20,10 @@ const resolvers = {
 			if (page && !postID) {
 				params = `?page=${page}`
 			}
-			if (!page && postID) {
+			else if (!page && postID) {
 				params = `?postID=${postID}`
 			}
-			if (!page && !postID) {
+			else if (!page && !postID) {
 				params = ""
 			}
 			return generalRequest(`${URL}/${reviewsEntryPoint}${params}`, 'GET')
@@ -31,9 +31,21 @@ const resolvers = {
 		reviewById: (_, { ID }) =>
 			generalRequest(`${URL}/${reviewsEntryPoint}/${ID}`, 'GET'),
 		// posts query resolvers
-		allPosts: (_, { page }) => {
-			const params = page ? `?page=${page}` : '';
-			return generalRequest(`${URL}/${postsEntryPoint + params}`, 'GET')
+		allPosts: (_, { page, category }) => {
+			let params;
+			if (page && category) {
+				params = `?category=${category}&page=${page}`
+			}
+			else if (page && !category) {
+				params = `?page=${page}`
+			}
+			else if (!page && category) {
+				params = `?category=${category}`
+			}
+			else {
+				params = ""
+			}
+			return generalRequest(`${URL}/${postsEntryPoint}${params}`, 'GET')
 		},
 		postById: (_, { ID }) =>
 			generalRequest(`${URL}/${postsEntryPoint}/${ID}`, 'GET')

@@ -93,7 +93,7 @@ const reviewMutations = `
 `;
 
 const postQueries = `
-	allPosts(page: Int): [Post]!
+	allPosts(page: Int, category: Int): [Post]!
 	postById(ID: Int!): Post!
 `;
 const postMutations = `

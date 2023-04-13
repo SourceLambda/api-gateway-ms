@@ -5,7 +5,7 @@ async function generalRequest(url, method, body) {
 	try {
 		
 		// verify the address structure (host:port/resource/[{id} or ?={page}])
-		if (!url.match(/:[\d]+\/[\w]+((([\/][1-9]+){0,1})|((\?page=[1-9]+){0,1})|((\?postID=[1-9]+){0,1}))$/)) {
+		if (!url.match(/(:\d{1,7})(\/(((post|review)(([\/][1-9]\d*)|([\?][a-z=\d&]*)){0,1})|categories))$/)) {
 			throw new Error(`Invalid request url: ${url}`)
 		}
 		
@@ -48,7 +48,7 @@ async function generalRequest(url, method, body) {
 		};
 		const response = await request(parameters)
 		
-		if (method === 'GET' && url.match(/\/post([\/][1-9]+)$/)) {
+		if (method === 'GET' && url.match(/\/post\/[1-9][0-9]*$/)) {
 			// GET /post/{id}
 			
 			response.Description = JSON.parse(response.Description)
