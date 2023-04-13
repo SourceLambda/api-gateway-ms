@@ -13,6 +13,12 @@ const resolvers = {
 
 		addressessByProfileId: (_, { id_profile }) =>
 			generalRequest(`${URL}/profile/${id_profile}/addresses`, 'GET'),
+
+		cardFromProfileCards: (_, { id_profile, id_card }) =>
+			generalRequest(`${URL}/profile/${id_profile}/cards/${id_card}`, 'GET'),
+
+		addressFromProfileAddresses: (_, { id_profile, id_address }) =>
+			generalRequest(`${URL}/profile/${id_profile}/addresses/${id_address}`, 'GET'),
 	},
 	Mutation: {
 		//create
@@ -25,10 +31,20 @@ const resolvers = {
 		createAddressToProfile: (_, { id_profile, address }) =>
 			generalRequest(`${URL}/profile/${id_profile}/address`, 'POST', address),
 
-/* 		updateCategory: (_, { id, category }) =>
-			generalRequest(`${URL}/${id}`, 'PUT', category),
-		deleteCategory: (_, { id }) =>
-			generalRequest(`${URL}/${id}`, 'DELETE') */
+ 		updateProfile: (_, { id_profile, profile }) =>
+			generalRequest(`${URL}/profile/${id_profile}`, 'PUT', profile),
+
+ 		updateProfileAddress: (_, { id_address, address }) =>
+			generalRequest(`${URL}/address/${id_address}`, 'PUT', address),
+
+		deleteProfile: (_, { id_profile }) =>
+			generalRequest(`${URL}/profile/${id_profile}`, 'DELETE'),
+
+		deleteAddress: (_, { id_profile, id_address }) =>
+			generalRequest(`${URL}/profile/${id_profile}/addresses/${id_address}`, 'DELETE'),
+
+		deleteCard: (_, { id_profile, id_card }) =>
+			generalRequest(`${URL}/profile/${id_profile}/cards/${id_card}`, 'DELETE'),
 	}
 };
 
