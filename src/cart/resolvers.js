@@ -18,6 +18,15 @@ const resolvers = {
 	Mutation: {
 		sendMessage: (_, { message }) => 
 			generalRequest(`${URL}/health/${message}`, 'GET'),	
+
+		addItem: (_, {userId, item}) => 
+			generalRequest(`${URL}/cart/${userId}`, 'POST', item),
+
+		removeItem: (_, {userId, item}) =>
+			generalRequest(`${URL}/cart/${userId}`, 'PATCH', item),
+
+		deleteCart: (_, {userId}) =>
+			generalRequest(`${URL}/cart/${userId}`, 'DELETE')
 	}
 };
 

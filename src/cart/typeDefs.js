@@ -4,8 +4,12 @@ type Item {
   quantity: Int!
 }
 
+input RemoveItemInput {
+  itemId: ID!
+}
+
 input ItemInput {
-  id: ID!
+  itemId: ID!
   quantity: Int!
 }`;
 
@@ -20,11 +24,14 @@ export const messageTypeDef = `
   }`;
 
 export const cartQueries = `
-    getCart(userId: ID!): [Item]!
+    getCart(userId: ID!): Cart!
     sendMessage(message: String!): Message!
     healthCheck: String!
   `;
 
 export const cartMutations = `
+    addItem(userId: ID!, item: ItemInput!): Cart
+    removeItem(userId: ID!, item: RemoveItemInput!): Cart
+    deleteCart(userId: ID!): Cart
     sendMessage(message: String!): Message!
   `;
