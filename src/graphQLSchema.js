@@ -5,7 +5,6 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
-<<<<<<< HEAD
 	typeDefsPostMS,
 	queriesPostMS,
 	mutationsPostMS
@@ -19,11 +18,7 @@ import {
 	billTypeDef
 } from './placeOrder_ms/typeDefs';
 
-import profileResolvers from './profile/resolvers';
-import postResolvers from './post_ms/resolvers';
-import billResolvers from './placeOrder_ms/resolvers';
-=======
-	messageTypeDef,
+import { messageTypeDef,
 	itemTypeDef,
 	cartTypeDef,
 	cartQueries,
@@ -32,37 +27,32 @@ import billResolvers from './placeOrder_ms/resolvers';
 } from './cart/typeDefs';
 
 import cartResolvers from './cart/resolvers';
->>>>>>> shopping_cart_ms
+import profileResolvers from './profile/resolvers';
+import postResolvers from './post_ms/resolvers';
+import billResolvers from './placeOrder_ms/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-<<<<<<< HEAD
 		profileTypeDef,
 		typeDefsPostMS,
-		billTypeDef
-	],
-	[
-		profileQueries,
-		queriesPostMS,
-		billQueries
-	],
-	[
-		profileMutations,
-		mutationsPostMS,
-		billMutations
-=======
+		billTypeDef,
 		messageTypeDef,
 		itemTypeDef,
 		cartTypeDef
 	],
 	[
+		profileQueries,
+		queriesPostMS,
+		billQueries,
 		cartQueries
 	],
 	[
+		profileMutations,
+		mutationsPostMS,
+		billMutations,
 		cartMutations
->>>>>>> shopping_cart_ms
 	]
 );
 
@@ -71,12 +61,9 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-<<<<<<< HEAD
 		profileResolvers,
 		postResolvers,
-		billResolvers
-=======
+		billResolvers,
 		cartResolvers
->>>>>>> shopping_cart_ms
 	)
 });
