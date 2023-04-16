@@ -1,7 +1,7 @@
 import { generalRequest } from './utilities_post_ms.js';
 
 const host = 'localhost';
-const port = '8080'
+const port = '8090'
 
 const categoriesEntryPoint = 'categories'
 const postsEntryPoint = 'post'
