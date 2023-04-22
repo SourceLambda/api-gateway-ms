@@ -13,28 +13,13 @@ const resolvers = {
 			generalRequest(`${URL}/bill/${idBill}`, 'GET'),
 	},
 	Mutation: {
-		createBill: (_, { idCliente }) =>
-			generalRequest(`${URL}/bill`, 'POST', { "idCliente": 15,
-			"date": "2023-05-11T12:30:00Z",
-			"user": "malejaja",
-			"state": "Pendiente",
-			"products": [
-			  {
-				"idProduct": 1,
-				"name": "Papas",
-				"description": "",
-				"price": 23.4,
-				"quantity": 10
-			  },
-			  {
-				"idProduct": 3,
-				"name": "Pescado",
-				"description": "",
-				"price": 25.4,
-				"quantity": 4
-			  }
-			]}),
-			updateStateBill: (_, { idBill, state }) =>
+		createBill: (_, { BillTemplate }) => {
+			console.log(BillTemplate)
+			let bill = generalRequest(`${URL}/bill`, 'POST', BillTemplate)
+			console.log(bill)
+			return bill
+		},
+		updateStateBill: (_, { idBill, state }) =>
 			generalRequest(`${URL}/bill/${idBill}`, 'PUT', { "idBill": idBill, "state": state }),
 		deleteBill: (_, { idBill }) =>
 			generalRequest(`${URL}/bill/${idBill}`, 'DELETE')

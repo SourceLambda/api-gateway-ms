@@ -8,6 +8,14 @@ export const billTypeDef = `
         quantity: Int!
   }
 
+
+  input ProductInput {
+      idProduct: Int!
+        name: String!
+        description: String!
+        price: Float!
+        quantity: Int!
+  }
   type Bill {
     idBill: Int!
     idCliente: Int!
@@ -21,6 +29,10 @@ export const billTypeDef = `
 
   input BillInput {
     idCliente: Int!
+    date: String!
+    user: String!
+    state: String!
+    products: [ProductInput]!
   }
   `;
 
@@ -31,7 +43,7 @@ export const billQueries = `
   `;
 
 export const billMutations = `
-  createBill(cliente: BillInput!): Bill!
+  createBill(BillTemplate: BillInput!): Bill!
   updateStateBill(idBill: Int!, state: String!): Bill!,
   deleteBill(idBill: Int!) : String
 `;
