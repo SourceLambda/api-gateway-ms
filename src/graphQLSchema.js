@@ -5,10 +5,12 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
-	categoryMutations,
-	categoryQueries,
-	categoryTypeDef
-} from './swarch2023i/categories/typeDefs';
+	typeDefsPostMS,
+	queriesPostMS,
+	mutationsPostMS
+} from './post_ms/typeDefs.js';
+
+import { profileQueries, profileMutations, profileTypeDef } from './profile/typeDefs';
 
 import {
 	billMutations,
@@ -16,23 +18,41 @@ import {
 	billTypeDef
 } from './placeOrder_ms/typeDefs';
 
-import categoryResolvers from './swarch2023i/categories/resolvers';
+import { messageTypeDef,
+	itemTypeDef,
+	cartTypeDef,
+	cartQueries,
+	cartMutations
+	
+} from './cart/typeDefs';
+
+import cartResolvers from './cart/resolvers';
+import profileResolvers from './profile/resolvers';
+import postResolvers from './post_ms/resolvers';
 import billResolvers from './placeOrder_ms/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		categoryTypeDef,
-		billTypeDef
+		profileTypeDef,
+		typeDefsPostMS,
+		billTypeDef,
+		messageTypeDef,
+		itemTypeDef,
+		cartTypeDef
 	],
 	[
-		categoryQueries,
-		billQueries
+		profileQueries,
+		queriesPostMS,
+		billQueries,
+		cartQueries
 	],
 	[
-		categoryMutations,
-		billMutations
+		profileMutations,
+		mutationsPostMS,
+		billMutations,
+		cartMutations
 	]
 );
 
@@ -41,7 +61,9 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		categoryResolvers,
-		billResolvers
+		profileResolvers,
+		postResolvers,
+		billResolvers,
+		cartResolvers
 	)
 });
