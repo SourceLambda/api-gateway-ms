@@ -12,7 +12,7 @@ const resolvers = {
 		createBill: (_, { idCliente }) =>
 			generalRequest(`${URL}/bill`, 'POST', { "idCliente": 15,
 			"date": "2023-05-11T12:30:00Z",
-			"user": "aleja",
+			"user": "malejaja",
 			"state": "Pendiente",
 			"products": [
 			  {
