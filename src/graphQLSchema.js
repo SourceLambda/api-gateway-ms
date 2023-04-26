@@ -26,10 +26,15 @@ import { messageTypeDef,
 	
 } from './cart/typeDefs';
 
+import {
+	browserQueries
+} from './browser/typeDefs';
+
 import cartResolvers from './cart/resolvers';
 import profileResolvers from './profile/resolvers';
 import postResolvers from './post_ms/resolvers';
 import billResolvers from './placeOrder_ms/resolvers';
+import BrowserResolvers from './browser/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
@@ -46,7 +51,8 @@ const mergedTypeDefs = mergeSchemas(
 		profileQueries,
 		queriesPostMS,
 		billQueries,
-		cartQueries
+		cartQueries,
+		browserQueries
 	],
 	[
 		profileMutations,
@@ -64,6 +70,7 @@ export default makeExecutableSchema({
 		profileResolvers,
 		postResolvers,
 		billResolvers,
-		cartResolvers
+		cartResolvers,
+		BrowserResolvers
 	)
 });

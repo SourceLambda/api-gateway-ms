@@ -1,11 +1,5 @@
 import { generalRequest } from './utilities_post_ms.js';
-
-const host = 'localhost';
-const port = '8090'
-
-const categoriesEntryPoint = 'categories'
-const postsEntryPoint = 'post'
-const reviewsEntryPoint = 'review'
+import {host, port, categoriesEntryPoint, postsEntryPoint, reviewsEntryPoint} from './server.js'
 
 const URL = `http://${host}:${port}`;
 
