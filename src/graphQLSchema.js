@@ -30,11 +30,21 @@ import {
 	browserQueries
 } from './browser/typeDefs';
 
+import {
+	userTypeDef,
+	userQueries,
+	userMutations,
+
+	userloginTypeDef,
+	userloginMutations
+} from './auth_ag/typeDefs';
+
 import cartResolvers from './cart/resolvers';
 import profileResolvers from './profile/resolvers';
 import postResolvers from './post_ms/resolvers';
 import billResolvers from './placeOrder_ms/resolvers';
 import BrowserResolvers from './browser/resolvers';
+import userResolvers from './auth_ag/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
@@ -45,20 +55,25 @@ const mergedTypeDefs = mergeSchemas(
 		billTypeDef,
 		messageTypeDef,
 		itemTypeDef,
-		cartTypeDef
+		cartTypeDef,
+		userTypeDef,
+		userloginTypeDef
 	],
 	[
 		profileQueries,
 		queriesPostMS,
 		billQueries,
 		cartQueries,
-		browserQueries
+		browserQueries,
+		userQueries
 	],
 	[
 		profileMutations,
 		mutationsPostMS,
 		billMutations,
-		cartMutations
+		cartMutations,
+		userMutations,
+		userloginMutations
 	]
 );
 
@@ -71,6 +86,7 @@ export default makeExecutableSchema({
 		postResolvers,
 		billResolvers,
 		cartResolvers,
-		BrowserResolvers
+		BrowserResolvers,
+		userResolvers
 	)
 });
