@@ -27,7 +27,9 @@ import { messageTypeDef,
 } from './cart/typeDefs';
 
 import {
-	browserQueries
+	browserQueries,
+	browseMutations,
+	browserTypeDef
 } from './browser/typeDefs';
 
 import {
@@ -57,7 +59,8 @@ const mergedTypeDefs = mergeSchemas(
 		itemTypeDef,
 		cartTypeDef,
 		userTypeDef,
-		userloginTypeDef
+		userloginTypeDef,
+		browserTypeDef
 	],
 	[
 		profileQueries,
@@ -73,7 +76,8 @@ const mergedTypeDefs = mergeSchemas(
 		billMutations,
 		cartMutations,
 		userMutations,
-		userloginMutations
+		userloginMutations,
+		browseMutations
 	]
 );
 

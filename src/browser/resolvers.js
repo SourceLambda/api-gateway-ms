@@ -2,6 +2,7 @@ import { generalRequest } from "../utilities";
 import { generalRequest as generalRequestPost} from "../post_ms/utilities_post_ms";
 import {url, port, entryPoint} from './server';
 import {host, port as post_port, postsEntryPoint, categoriesEntryPoint} from '../post_ms/server'
+import runProducer from "../queue_producer/producer";
 
 const URL = `http://${url}:${port}/${entryPoint}`;
 const post_URL = `http://${host}:${post_port}`
@@ -15,13 +16,13 @@ const resolvers = {
 			let postsToSort = []
             let postIndex = new Object()
 
-
             for (let index = 0; index < searchedPostsIds.length; index++) {
 
                 const id = searchedPostsIds[index]
 
                 let post = await generalRequestPost(`${post_URL}/${postsEntryPoint}/${id}`, 'GET')
-                let categories = await generalRequestPost(`${post_URL}/${categoriesEntryPoint}`, 'GET')
+                let category  = await generalRequest(`${post_URL}/${categoriesEntryPoint}/${post.CategoryID}`, 'GET')
+                /* let categories = await generalRequestPost(`${post_URL}/${categoriesEntryPoint}`, 'GET')
 
                 let category = ""
 
@@ -29,7 +30,7 @@ const resolvers = {
                     const element = categories[index];
                     if(post.CategoryID == element.ID) category = element.Name
                     
-                }
+                } */
 
                 postIndex[id] = post
 
@@ -37,7 +38,7 @@ const resolvers = {
                     id : id,
                     title : post.Title,
                     desc : makeDesc(post.Description),
-                    category : category,
+                    category : category.Name,
                     views : post.Views,
                     rating : post.Num_ratings != 0 ? post.Sum_ratings / post.Num_ratings : 0.0 
 
@@ -54,6 +55,12 @@ const resolvers = {
             }
 
             return finalSortedPosts
+        }
+    },
+    Mutation: {
+        index: (_, {post}) => {
+            runProducer(post)
+            return "Enqueue successful"
         }
     }
 }
