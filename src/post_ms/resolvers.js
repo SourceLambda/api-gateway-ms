@@ -1,5 +1,5 @@
 import { generalRequest } from './utilities_post_ms.js';
-import {host, port, categoriesEntryPoint, postsEntryPoint, reviewsEntryPoint} from './server.js'
+import {host, port, countPostsEntryPoint, categoriesEntryPoint, postsEntryPoint, reviewsEntryPoint} from './server.js'
 
 const URL = `http://${host}:${port}`;
 
@@ -8,6 +8,8 @@ const resolvers = {
 		// categories query resolvers
 		allCategories: (_ ) => 
 			generalRequest(`${URL}/${categoriesEntryPoint}`, 'GET'),
+		categoryById: (_, { ID } ) => 
+			generalRequest(`${URL}/${categoriesEntryPoint}/${ID}`, 'GET'),
 		// reviews query resolvers
 		allReviews: (_, { page, postID }) => {
 			let params;
@@ -42,7 +44,9 @@ const resolvers = {
 			return generalRequest(`${URL}/${postsEntryPoint}${params}`, 'GET')
 		},
 		postById: (_, { ID }) =>
-			generalRequest(`${URL}/${postsEntryPoint}/${ID}`, 'GET')
+			generalRequest(`${URL}/${postsEntryPoint}/${ID}`, 'GET'),
+		countAllPost: (_ ) => 
+			generalRequest(`${URL}/${countPostsEntryPoint}`, 'GET')
 	},
 	Mutation: {
 		// reviews mutation resolvers

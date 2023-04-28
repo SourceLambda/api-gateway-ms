@@ -5,7 +5,7 @@ async function generalRequest(url, method, body) {
 	try {
 		
 		// verify the address structure (host:port/resource/[{id} or ?={page}])
-		if (!url.match(/(:\d{1,7})(\/(((post|review)(([\/][1-9]\d*)|([\?][\w=&]*)){0,1})|categories))$/)) {
+		if (!url.match(/(:\d{1,7})(\/(categories|count-post|post|review)((\/[1-9]\d*)|(\?[\w=&]*)){0,1})$/)) {
 			throw new Error(`Invalid request url: ${url}`)
 		}
 		

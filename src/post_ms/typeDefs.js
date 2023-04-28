@@ -80,6 +80,7 @@ input PostInput {
 
 const categoriesQueries = `
 	allCategories: [Category]!
+	categoryById(ID: Int!): Category!
 `
 
 const reviewQueries = `
@@ -95,6 +96,7 @@ const reviewMutations = `
 const postQueries = `
 	allPosts(page: Int, category: Int): [Post]!
 	postById(ID: Int!): Post!
+	countAllPost: Int!
 `;
 const postMutations = `
 	createPost(post: PostInput!): String!
