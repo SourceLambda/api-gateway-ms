@@ -11,4 +11,6 @@ RUN npm install
 COPY . /sourcelambda_ag/
 RUN npm run prepublish
 
+EXPOSE 5000
+
 CMD [ "npm", "run", "runServer" ]

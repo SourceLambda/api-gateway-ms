@@ -3,8 +3,8 @@ import { generalRequest, getRequest } from '../utilities';
 
 // const URL = `http://${url}:${port}/${entryPoint}`;
 
-const url_source_lambda = '172.17.0.1';
-const port_source_lambda = '3000';
+const url_source_lambda = 'localhost';
+const port_source_lambda = '3001'; 
 const entryPoint_create_user = 'api/v1/users';
 
 const URL_CREATE_USER = `http://${url_source_lambda}:${port_source_lambda}/${entryPoint_create_user}`;
@@ -15,7 +15,7 @@ const URL_LOGIN_USER = `http://${url_source_lambda}:${port_source_lambda}/${entr
 
 const entryPoint_query_users = 'api/v1/users/_';
 
-const URL_QUERY_USER = `http://${url_source_lambda}:${port_source_lambda}/${entryPoint_query_users}`;
+const URL_QUERY_USER = `http://localhost:3001/api/v1/users/_`;
 
 
 const resolvers = {
@@ -25,7 +25,7 @@ const resolvers = {
 		// categoryById: (_, { id }) =>
 		// 	generalRequest(`${URL}/${id}`, 'GET'),
 		allUsers:(_)=>
-			generalRequest(`${URL_QUERY_USER}/`, 'GET')
+			generalRequest(`${URL_QUERY_USER}`, 'GET')
 	},
 	Mutation: {
 		// createCategory: (_, { category }) =>
