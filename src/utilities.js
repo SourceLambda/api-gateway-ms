@@ -1,5 +1,7 @@
 import request from 'request-promise-native';
 import { formatError } from 'graphql';
+import { host as hostP, port as portP} from './post_ms/server.js';
+import { url as hostC, port as portC } from './cart/server.js';
 
 /**
  * Creates a request following the given parameters
@@ -33,6 +35,46 @@ export async function generalRequest(url, method, body, fullResponse) {
 		return err;
 	}
 }
+
+export async function getCartInfoRequest(urlCart) {
+
+	try {
+
+		const URLP = `http://${hostP}:${portP}`;
+
+		const URLC = `http://${hostC}:${portC}`;
+
+		const cart = await generalRequest(`${URLC}/cart/${urlCart}`, 'GET');
+
+		console.log(`Initial Cart: ${JSON.stringify(cart)}`);
+
+		const itemPromises = cart.items.map( async (item) => {
+
+			const itemDetails = await generalRequest(`${URLP}/post/${item.itemId}`, 'GET');
+
+			console.log(`Item Details: ${JSON.stringify(itemDetails)}`);
+
+			return { 
+				itemId: item.itemId,
+				name: itemDetails.Title,
+				price: itemDetails.Price,
+				quantity: item.quantity,
+			};
+		});
+
+
+		const res = await Promise.all(itemPromises);
+
+		console.log(`Full Cart: ${JSON.stringify(res)}`);
+
+		return {"items" : res};
+
+	} catch (err) {
+
+		return err;
+
+	}
+};
 
 /**
  * Adds parameters to a given route

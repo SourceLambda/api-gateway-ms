@@ -1,4 +1,4 @@
-import { generalRequest, getRequest } from '../utilities';
+import { generalRequest, getRequest, getCartInfoRequest } from '../utilities';
 import { url, port, entryPoint } from './server';
 
 const URL = `http://${url}:${port}`;
@@ -13,6 +13,9 @@ const resolvers = {
 
 		getCart: (_, {userId}) => 
 			generalRequest(`${URL}/cart/${userId}`, 'GET'),
+
+		getCartInfo: (_, {userId}) => 
+			getCartInfoRequest(userId)
 
 	},
 	Mutation: {
