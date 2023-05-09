@@ -1,21 +1,32 @@
 export const itemTypeDef = `
-type Item {
-  itemId: ID!
-  quantity: Int!
-}
+  type Item {
+    itemId: ID!
+    quantity: Int!
+  }
 
-input RemoveItemInput {
-  itemId: ID!
-}
+  type ItemInfo {
+    itemId: ID!
+    name: String!
+    price: Float!
+    quantity: Int!
+  }
 
-input ItemInput {
-  itemId: ID!
-  quantity: Int!
-}`;
+  input RemoveItemInput {
+    itemId: ID!
+  }
+
+  input ItemInput {
+    itemId: ID!
+    quantity: Int!
+  }`;
 
 export const cartTypeDef = `
   type Cart {
     items: [Item]!
+  }
+  
+  type CartItems {
+    items: [ItemInfo]!
   }`;
 
 export const messageTypeDef = `
@@ -25,6 +36,7 @@ export const messageTypeDef = `
 
 export const cartQueries = `
     getCart(userId: ID!): Cart!
+    getCartInfo(userId: ID!): CartItems!
     sendMessage(message: String!): Message!
     healthCheck: String!
   `;

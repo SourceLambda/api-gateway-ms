@@ -1,14 +1,16 @@
 FROM node:carbon-slim
 
 # Create app directory
-WORKDIR /swarch2023i_ag
+WORKDIR /sourcelambda_ag
 
 # Install app dependencies
-COPY package.json /swarch2023i_ag/
+COPY package.json /sourcelambda_ag/
 RUN npm install
 
 # Bundle app source
-COPY . /swarch2023i_ag/
+COPY . /sourcelambda_ag/
 RUN npm run prepublish
+
+EXPOSE 5000
 
 CMD [ "npm", "run", "runServer" ]

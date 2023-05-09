@@ -5,7 +5,20 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
-	messageTypeDef,
+	typeDefsPostMS,
+	queriesPostMS,
+	mutationsPostMS
+} from './post_ms/typeDefs.js';
+
+import { profileQueries, profileMutations, profileTypeDef } from './profile/typeDefs';
+
+import {
+	billMutations,
+	billQueries,
+	billTypeDef
+} from './placeOrder_ms/typeDefs';
+
+import { messageTypeDef,
 	itemTypeDef,
 	cartTypeDef,
 	cartQueries,
@@ -13,21 +26,58 @@ import {
 	
 } from './cart/typeDefs';
 
+import {
+	browserQueries,
+	browseMutations,
+	browserTypeDef
+} from './browser/typeDefs';
+
+import {
+	userTypeDef,
+	userQueries,
+	userMutations,
+
+	userloginTypeDef,
+	userloginMutations
+} from './auth_ag/typeDefs';
+
 import cartResolvers from './cart/resolvers';
+import profileResolvers from './profile/resolvers';
+import postResolvers from './post_ms/resolvers';
+import billResolvers from './placeOrder_ms/resolvers';
+import BrowserResolvers from './browser/resolvers';
+import userResolvers from './auth_ag/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
+		profileTypeDef,
+		typeDefsPostMS,
+		billTypeDef,
 		messageTypeDef,
 		itemTypeDef,
-		cartTypeDef
+		cartTypeDef,
+		userTypeDef,
+		userloginTypeDef,
+		browserTypeDef
 	],
 	[
-		cartQueries
+		profileQueries,
+		queriesPostMS,
+		billQueries,
+		cartQueries,
+		browserQueries,
+		userQueries
 	],
 	[
-		cartMutations
+		profileMutations,
+		mutationsPostMS,
+		billMutations,
+		cartMutations,
+		userMutations,
+		userloginMutations,
+		browseMutations
 	]
 );
 
@@ -36,6 +86,11 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		cartResolvers
+		profileResolvers,
+		postResolvers,
+		billResolvers,
+		cartResolvers,
+		BrowserResolvers,
+		userResolvers
 	)
 });
