@@ -41,18 +41,12 @@ export async function getCartInfoRequest(urlCart) {
 	try {
 
 		const URLP = `http://${hostP}:${portP}`;
-
 		const URLC = `http://${hostC}:${portC}`;
 
 		const cart = await generalRequest(`${URLC}/cart/${urlCart}`, 'GET');
 
-		console.log(`Initial Cart: ${JSON.stringify(cart)}`);
-
 		const itemPromises = cart.items.map( async (item) => {
-
 			const itemDetails = await generalRequest(`${URLP}/post/${item.itemId}`, 'GET');
-
-			console.log(`Item Details: ${JSON.stringify(itemDetails)}`);
 
 			return { 
 				itemId: item.itemId,
@@ -62,17 +56,11 @@ export async function getCartInfoRequest(urlCart) {
 			};
 		});
 
-
 		const res = await Promise.all(itemPromises);
-
-		console.log(`Full Cart: ${JSON.stringify(res)}`);
-
 		return {"items" : res};
 
 	} catch (err) {
-
 		return err;
-
 	}
 };
 

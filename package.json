@@ -1,5 +1,5 @@
 {
-	"name": "swarch2023i_ag",
+	"name": "sourcelambda_ag",
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/index.js",
@@ -19,7 +19,7 @@
 		]
 	},
 	"keywords": [],
-	"author": "javergarav",
+	"author": "javergarav/sourcelambda",
 	"license": "MIT",
 	"dependencies": {
 		"@koa/cors": "^2.2.1",
