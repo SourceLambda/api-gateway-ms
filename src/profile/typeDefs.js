@@ -3,11 +3,12 @@ export const profileTypeDef = `
       idProfile: Int!
       firstname: String!
       lastname: String!
-      telNumber: Int!
+      telNumber: Float!
       email: String!
       password: String!
       birthday: String!
-      alternativeNumber: Int!
+      alternativeNumber: Float!
+      role: String!
   }
 
   type Card {
@@ -29,11 +30,12 @@ export const profileTypeDef = `
     idProfile: Int!
     firstname: String!
     lastname: String!
-    telNumber: Int!
+    telNumber: Float!
     email: String!
     password: String!
     birthday: String!
-    alternativeNumber: Int
+    alternativeNumber: Float
+    role: String!
   }
   
   input CardInput {
