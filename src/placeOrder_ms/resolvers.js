@@ -1,4 +1,4 @@
-import { generalRequest, getRequest } from '../utilities';
+import { generalRequest, getRequest ,getCartInfoRequest } from '../utilities';
 import { url, port, entryPoint } from './server';
 
 const URL = `http://${url}:${port}/${entryPoint}`;
@@ -13,9 +13,25 @@ const resolvers = {
 			generalRequest(`${URL}/bill/${idBill}`, 'GET'),
 	},
 	Mutation: {
-		createBill: (_, { BillTemplate }) => {
-			console.log(BillTemplate)
-			let bill = generalRequest(`${URL}/bill`, 'POST', BillTemplate)
+		createBill: async (_, { idCliente}) => {
+			
+			let BillTemplate = await getCartInfoRequest(idCliente)
+			let variable =BillTemplate.items.map((item) => {
+				return {
+					"idProduct": item.itemId,
+					"name": item.name,
+					"price": item.price,
+					"quantity": item.quantity
+				}
+			})
+			let variable2 = {
+				"idCliente": idCliente,
+				"user":idCliente,
+				"date": new Date().toISOString(),
+				"products": variable}
+
+			console.log(variable2)
+			let bill = await generalRequest(`${URL}/bill`, 'POST', variable2)
 			console.log(bill)
 			return bill
 		},
