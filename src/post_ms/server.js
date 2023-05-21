@@ -1,4 +1,4 @@
-export const host = 'localhost';
+export const host = process.env.HOST_ADDR||'localhost';
 export const port = '8090'
 
 export const countPostsEntryPoint = 'count-post'

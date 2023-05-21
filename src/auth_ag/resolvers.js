@@ -3,7 +3,7 @@ import { generalRequest, getRequest } from '../utilities';
 
 // const URL = `http://${url}:${port}/${entryPoint}`;
 
-const url_source_lambda = 'localhost';
+const url_source_lambda = process.env.HOST_ADDR||'localhost';
 const port_source_lambda = '3001'; 
 const entryPoint_create_user = 'api/v1/users';
 
