@@ -49,6 +49,11 @@ export const profileTypeDef = `
     address: String!
     detailAddress: String!
   }
+
+  input Credentials {
+    email: String!
+    password: String!
+  }
   `;
 
 export const profileQueries = `
@@ -70,4 +75,6 @@ export const profileMutations = `
     deleteProfile(id_profile: String!): Int
     deleteCard(id_profile: String!, id_card: Int!): Int
     deleteAddress(id_profile: String!, id_address: Int!): Int
+
+    loginToProfile(credentials: Credentials!): Profile
 `;

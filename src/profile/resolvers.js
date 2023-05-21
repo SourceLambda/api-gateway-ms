@@ -45,6 +45,9 @@ const resolvers = {
 
 		deleteCard: (_, { id_profile, id_card }) =>
 			generalRequest(`${URL}/profile/${id_profile}/cards/${id_card}`, 'DELETE'),
+
+		loginToProfile: (_, { credentials }) =>
+			generalRequest(`${URL}/profile/login`, 'POST', credentials),
 	}
 };
 
