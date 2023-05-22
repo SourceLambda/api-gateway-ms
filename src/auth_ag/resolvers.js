@@ -15,9 +15,9 @@ const URL_LOGIN_USER = `http://${url_source_lambda}:${port_source_lambda}/${entr
 
 const entryPoint_query_users = 'api/v1/users/_';
 
-const URL_QUERY_USER = `http://localhost:3001/api/v1/users/_`;
+const URL_QUERY_USER = 'http://localhost:3001/api/v1/users/_';
 
-const URL_RECOVER_USER = 'http://172.17.0.1:3001/api/v1/users/recovery';
+const URL_RECOVER_USER = 'http://localhost:3001/api/v1/users/recovery';
 
 
 const resolvers = {
