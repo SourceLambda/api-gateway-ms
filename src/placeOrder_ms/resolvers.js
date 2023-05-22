@@ -13,7 +13,7 @@ const resolvers = {
 			generalRequest(`${URL}/bill/${idBill}`, 'GET'),
 	},
 	Mutation: {
-		createBill: async (_, { idCliente}) => {
+		createBill: async (_, { idCliente, name }) => {
 			
 			let BillTemplate = await getCartInfoRequest(idCliente)
 			let variable =BillTemplate.items.map((item) => {
@@ -26,9 +26,10 @@ const resolvers = {
 			})
 			let variable2 = {
 				"idCliente": idCliente,
-				"user":idCliente,
+				"user": name,
 				"date": new Date().toISOString(),
-				"products": variable}
+				"products": variable
+			}
 
 			console.log(variable2)
 			let bill = await generalRequest(`${URL}/bill`, 'POST', variable2)

@@ -41,7 +41,7 @@ export const billQueries = `
   `;
 
 export const billMutations = `
-  createBill(idCliente:String!): Bill!
-  updateStateBill(idBill: Int!, state: String!): Bill!,
+  createBill(idCliente:String! ,name:String ): Bill!
+  updateStateBill(idBill: Int!, state: String!): Bill!
   deleteBill(idBill: Int!) : String
 `;
