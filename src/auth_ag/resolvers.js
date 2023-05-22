@@ -17,6 +17,8 @@ const entryPoint_query_users = 'api/v1/users/_';
 
 const URL_QUERY_USER = `http://localhost:3001/api/v1/users/_`;
 
+const URL_RECOVER_USER = 'http://172.17.0.1:3001/api/v1/users/recovery';
+
 
 const resolvers = {
 	Query: {
@@ -39,7 +41,10 @@ const resolvers = {
 			generalRequest(`${URL_CREATE_USER}/`, 'POST', user),
 
 		loginUser:(_,{ userlogin })=>
-			generalRequest(`${URL_LOGIN_USER}/`, 'POST', userlogin)
+			generalRequest(`${URL_LOGIN_USER}/`, 'POST', userlogin),
+		
+		recoverUser:(_,{ userRecover })=>
+			generalRequest(`${URL_RECOVER_USER}/`,'POST',userRecover)
 	}
 };
 

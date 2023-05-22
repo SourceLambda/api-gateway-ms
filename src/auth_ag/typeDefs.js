@@ -46,6 +46,18 @@ export const userloginTypeDef=`
   }
 `;
 
+export const userRecoverTypeDef=`
+  type UserRecover{
+    id: Int!
+    email: String!
+    role: String!
+  }
+  input UserRecoverInput{
+    email: String!
+    password: String!
+  }
+`;
+
 export const userQueries = `
   allUsers:[User]!
 `;
@@ -56,4 +68,8 @@ export const userMutations =`
 
 export const userloginMutations=`
   loginUser(userlogin: UserLoginInput!):JSON!
+`;
+
+export const userRecoverMutations=`
+  recoverUser(userRecover: UserRecoverInput!):JSON!
 `;

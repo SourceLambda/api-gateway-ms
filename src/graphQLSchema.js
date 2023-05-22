@@ -38,7 +38,10 @@ import {
 	userMutations,
 
 	userloginTypeDef,
-	userloginMutations
+	userloginMutations,
+
+	userRecoverTypeDef,
+	userRecoverMutations
 } from './auth_ag/typeDefs';
 
 import cartResolvers from './cart/resolvers';
@@ -60,6 +63,7 @@ const mergedTypeDefs = mergeSchemas(
 		cartTypeDef,
 		userTypeDef,
 		userloginTypeDef,
+		userRecoverTypeDef,
 		browserTypeDef
 	],
 	[
@@ -77,6 +81,7 @@ const mergedTypeDefs = mergeSchemas(
 		cartMutations,
 		userMutations,
 		userloginMutations,
+		userRecoverMutations,
 		browseMutations
 	]
 );
