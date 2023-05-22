@@ -1,0 +1,122 @@
+version: '3'
+services:
+    #posts
+    sourcelambda_post_db:
+      image: jubedoyag/sourcelambda_post_db:1.4.0
+      ports:
+          - ${POST_DB_PORT}:5432
+      environment:
+          - POSTGRES_DB=${POST_DB_NAME}
+          - POSTGRES_USER=${POST_DB_USER}
+          - POSTGRES_PASSWORD=${POST_DB_PASSWORD}
+    sourcelambda_post_ms:
+      image: jubedoyag/sourcelambda_post_ms:1.4.1
+      ports:
+          - ${POST_MS_PORT}:${POST_MS_PORT}
+      environment:
+          - POST_MS_PORT=${POST_MS_PORT}
+          - POST_DB_NAME=${POST_DB_NAME}
+          - POST_DB_HOST=${POST_DB_HOST}
+          - POST_DB_PORT=${POST_DB_PORT}
+          - POST_DB_USER=${POST_DB_USER}
+          - POST_DB_PASSWORD=${POST_DB_PASSWORD}
+      depends_on:
+          - sourcelambda_post_db
+      extra_hosts:
+          - "host.docker.internal:host-gateway"
+    #shopping cart
+    redis:
+        image: redis/redis-stack
+        ports:
+            - ${REDIS_PORT}:6379
+    sourcelambda_shoppingcart_ms:
+        image: hombrexgsp/shopping-cart-ms:0.0.3
+        ports:
+            - ${SHOPPINGCART_PORT}:8080
+        depends_on:
+            - redis
+        extra_hosts:
+          - "host.docker.internal:host-gateway"
+
+    #browser
+    sourcelambda_mq:
+        image: justdangel/sourcelambda_mq
+        ports:
+            - ${MQ_PORT_A}:5672
+            - ${MQ_PORT_B}:15672
+    sourcelambda_browser_db:
+        image: justdangel/sourcelambda_browser_db
+        ports:
+            - ${BROWSER_DB_PORT}:6379
+    sourcelambda_browser_ms:
+        image: justdangel/test
+        ports:
+            - ${BROWSER_MS_PORT}:8085
+        environment:
+            - REDIS_BROWSER_HOST=${REDIS_BROWSER_HOST}
+            - REDIS_BROWSER_PORT=${REDIS_BROWSER_PORT}
+            - RABBITMQ_HOST=${RABBITMQ_HOST}
+            - RABBITMQ_QUEUE_NAME=${RABBITMQ_QUEUE_NAME}
+        depends_on:
+            - sourcelambda_browser_db
+            - sourcelambda_mq
+        extra_hosts:
+          - "host.docker.internal:host-gateway"
+        
+    #placeorder
+    sourcelambda_placeorder_ms:
+        image:  majimenezh/sourcelambda_placeorder_ms:v2 
+        ports: 
+            - ${PLACEORDER_MS_PORT}:4000
+        environment:
+            - URL=${URL_PLACEORDER_MS}
+    #profile
+    sourcelambda_profile_db:
+        image: tete144/sourcelambda_profile_db
+        ports:
+            - ${PROFILE_DB_PORT}:3306
+        networks:
+            - profile-net
+    sourcelambda_profile_ms:
+        image: tete144/sourcelambda_profile_ms
+        ports: 
+            - ${PROFILE_MS_PORT}:8080
+        depends_on:
+            - sourcelambda_profile_db
+        networks:
+            - profile-net
+
+    #auth
+    sourcelambda_auth_db:
+        image: postgres:13
+        environment:
+            - POSTGRES_DB=mydb
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+        ports:
+            - ${AUTH_DB_PORT}:5432
+        volumes:
+            - ./postgres_data:/var/lib/postgresql/data
+    sourcelambda_auth_ms:
+        image: bchaparro11/source_lambda_auth:windows
+        ports: 
+            - ${AUTH_MS_PORT}:3000
+        depends_on:
+            - sourcelambda_auth_db
+
+    #ag
+    sourcelambda_ag:
+        image: tete144/sourcelambda_ag
+        ports:
+            - 5000:5000
+        environment:
+            - HOST_ADDR=${HOST_ADDR}
+        extra_hosts:
+            # same as --add-host=host.docker.internal:host-gateway in run command
+            - "host.docker.internal:host-gateway"
+networks:
+    profile-net:
+        driver: bridge
+
+
+    

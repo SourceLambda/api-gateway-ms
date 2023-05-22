@@ -2,7 +2,7 @@ var amqp = require('amqplib/callback_api')
 
 function runProducer(message) {
 
-    var host = '172.17.0.3'
+    var host = 'host.docker.internal'
 
     amqp.connect('amqp://'+ host, function(err, connection) {
         if(err) throw err
